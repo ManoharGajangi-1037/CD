@@ -1,23 +1,21 @@
 %{
-#include <stdio.h>
+int length;
 %}
 
-/* Definitions */
-
 %%
-
-[Aa][a-zA-Z]{2}[ ]   { printf("%s\n", yytext); }
-[a-zA-Z]{3}        /* Ignore other words of length 3 */
-.|\n             /* Ignore other characters and newlines */
-
+[a-zA-Z0-9]+ { 
+    length = yyleng; 
+    if (yytext[0] == 'a' && length == 3) {
+        printf("%s\n", yytext);
+    }
+}
+.           ;
 %%
 
 int yywrap(){
 
 }
-
-int main() {
-    printf("Enter a string: ");
+int main(){
     yylex();
     return 0;
 }
